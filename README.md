@@ -44,7 +44,10 @@ My script will have a default configuration where BitTorrent Sync is available f
 You can also provide a different URL for a direct link of ARM binaries that haven been posted from the Administrators on the forum but are not yet available throuh the getsync.com website.  
 You do this by using the following syntax ```./btsync.sh yourURLhere``` 
 
-You will see some output to show you what it is doing or where it failed.
+You will see some output to show you what it is doing or where it failed.  
+
+After it is done you want to have BitTorrent Sync after you restart it so type the following  
+```sudo update-rc.d btsync defaults```
 
 
 If you have any kind of productive contribution to this project, create a pull request! I would love to see people improving it. Especially since I know people will be screaming at their screen how ugly it is.
