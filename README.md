@@ -1,4 +1,4 @@
-Sync Script
+Raspberry Pi Sync Script
 =======
 
 This is a script to install and update your [BitTorrent Sync](https://www.getsync.com/) installation on your [Raspberry Pi](https://www.raspberrypi.org/).
