@@ -18,7 +18,7 @@ Make sure to have ```curl``` installed
 * Create a script ```/etc/init.d/btsync``` so it runs after boot and you can easily start/stop it
 * Create a configuration file for BitTorrent Sync to run from
 
-Prior of running this script on your Raspberry Pi you want to verify that the user variable on line 6 is correct.  
+Prior of running this script you want to verify that the user variable on line 6 is correct.  
 99% (that is my estimate ;D) are running and using the Raspberry Pi with the default user ```pi```.  
 If that is the case for you, you don't need to do anything.
 
