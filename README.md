@@ -41,7 +41,7 @@ My script will have a default configuration where BitTorrent Sync is available f
 ```
 ./btsync.sh
 ```
-You can also provide a different URL for a direct link of ARM binaries that haven been posted from the Administrators on the forum but are not yet available throuh the getsync.com website.  
+You can also provide a different URL of a direct link of an ARM binarie that has been posted from the Administrators on the forum, but is not yet available through the getsync.com website.  
 You do this by using the following syntax ```./btsync.sh yourURLhere``` 
 
 You will see some output to show you what it is doing or where it failed.  
