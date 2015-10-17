@@ -4,8 +4,8 @@
 #Change the $user variable to the user you would like Sync to be installed to and later run as
 #Default is pi
 user="pi"
-btsdir="/home/$user/.btsync"
 # Don't alter variables below since they are relevant for running the script properly
+btsdir="/home/$user/.btsync"
 btsbinary="btsync_arm.tar.gz"
 red=`tput setaf 1`
 green=`tput setaf 2`
