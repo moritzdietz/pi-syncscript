@@ -243,6 +243,42 @@ function install {
   btsyncconfig
 }
 
+function _backup {
+  bkreason="[$stat_ok]  The BitTorrent Sync installation folder is being backed up as (${btsdir}_backup)"
+  # Look for the 4 common signals that indicate this script was killed.
+  # If the background command was started, kill it, too.
+  if [ -e ${btsdir} ]; then
+    trap '[ -z $! ] || kill $!' SIGHUP SIGINT SIGQUIT SIGTERM
+    sudo cp -r ${btsdir} ${btsdir}_backup &>/dev/null & # Copy the file in the background.
+  else
+    # That actually doesn't work yet... still have to figure that one out
+    echo -ne '\n'
+    echo "[$stat_x]   Error: Copying files failed"
+    sleep 0.7
+    exit 1
+  fi
+  # The /proc directory exists while the command runs.
+  while [ -e /proc/$! ]; do
+    echo -ne "[ooo] ${bkreason}\r"
+    sleep 0.2
+    echo -ne "[Ooo] ${bkreason}\r"
+    sleep 0.2
+    echo -ne "[oOo] ${bkreason}\r"
+    sleep 0.2
+    echo -ne "[ooO] ${bkreason}\r"
+    sleep 0.2
+    echo -ne "[oOo] ${bkreason}\r"
+    sleep 0.2
+    echo -ne "[Ooo] ${bkreason}\r"
+    sleep 0.2
+    echo -ne "[ooo] ${bkreason}\r"
+  done
+  echo -ne '\n'
+  echo -ne "[$stat_ok]  BitTorrent Sync has been successfully backed up\r"
+  echo -ne '\n'
+  sudo chown $user:$(groups $user | awk '{print $3}') -R ${btsdir}_backup
+}
+
 
 function update {
   initcheck
@@ -252,11 +288,12 @@ function update {
   btinitcscript
 }
 
-read -r -p "[$stat_y]   Do you want to install BitTorrent Sync or update it? [install(default)/(u)pdate]: " response
+read -r -p "[$stat_y]   Do you want to install BitTorrent Sync or update it? [install(default)/(u)pdate/(b)ackup]: " response
     if [[ $response =~ ^([u|U]|[u|U]pdate)$ ]]; then
       update
       exit 0
-    else
-      install
+    elif [[ $response =~ ^([b|B]|[b|B]ackup)$ ]]; then
+      initcheck
+      _backup
       exit 0
     fi
