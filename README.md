@@ -14,7 +14,7 @@ This script will do the following after you run it:
 * Download the latest public available version of the ARM binary from BitTorrent Inc.'s website  
 Make sure to have ```curl``` installed  
 * Extract it to a predefined location
-* Create a script ```/etc/init.d/btsync```
+* Create a script ```/etc/init.d/btsync``` so it runs after boot and you can easily start/stop it
 * Create a configuration file for BitTorrent Sync to run from
 
 Prior of running this script on your Raspberry Pi you want to verify that the user variable on line 6 is correct.  
