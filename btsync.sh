@@ -111,7 +111,7 @@ EOF
   sudo sed -e "s/\${USER}/$user/" $btsdir/btsync_init > $btsdir/btsync_init2
   sudo mv $btsdir/btsync_init2 /etc/init.d/btsync
   sudo chmod 755 /etc/init.d/btsync
-  echo "[$stat_ok]   Created /etc/init.d/btsync script"
+  echo "[$stat_ok]  Created /etc/init.d/btsync script"
   fi
 }
 
@@ -152,14 +152,14 @@ function download {
       exit 1
   fi
   if [ -z "$dllink" ]; then
-      echo "[$stat_ok]   Downloading the latest stable version from BitTorrent Inc."
+      echo "[$stat_ok]  Downloading the latest stable version from BitTorrent Inc."
       curl -# -o btsync_arm.tar.gz https://download-cdn.getsync.com/stable/linux-arm/BitTorrent-Sync_arm.tar.gz
       if [ $? -ne 0 ]; then
         echo "[$stat_x]   Error: There was an error downloading the file."
         exit 1
       fi
     else 
-      echo "[$stat_ok]   Downloading the binary from the link provided"
+      echo "[$stat_ok]  Downloading the binary from the link provided"
       curl -# -o btsync_arm.tar.gz "$dllink"
       if [ $? -ne 0 ]; then
         echo "[$stat_x]   Error: There was an error downloading the file. Check the URL and try again."
@@ -167,13 +167,13 @@ function download {
       fi
   fi
   if [ $? -ne 0 ]; then
-      echo "[$stat_x]  Failed to download the file"
+      echo "[$stat_x]   Failed to download the file"
       exit 1
   fi
-  echo "[$stat_ok]   Successfully downloaded the binary"
+  echo "[$stat_ok]  Successfully downloaded the binary"
   cd $btsdir
   tar -zxvf btsync_arm.tar.gz btsync &>/dev/null
-  echo "[$stat_ok]   Extraced the files to" $btsdir
+  echo "[$stat_ok]  Extraced the files to" $btsdir
   rm btsync_arm.tar.gz &>/dev/null
   if [ $? -ne 0 ]; then
       echo "[$stat_x]   Error: Could not remove $btsdir/$btsbinary since it does not exist"
@@ -190,11 +190,11 @@ function install {
     sleep 0.7
     mkdir $btsdir
       if [ $? -ne 0 ]; then
-        echo -ne "[$stat_x]  Could not create installation folder $btsdir\r"
+        echo -ne "[$stat_x]   Could not create installation folder $btsdir\r"
         echo -ne '\n'
         exit 1
       fi
-    echo -ne "[$stat_ok]   The BitTorrent Sync installation folder has been created ($btsdir)"
+    echo -ne "[$stat_ok]  The BitTorrent Sync installation folder has been created ($btsdir)"
     echo -ne '\n'
     sleep 0.7
   else
@@ -205,7 +205,7 @@ function install {
     if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
         echo -ne "[$stat_y]   Removing all files in $btsdir\r"
         sudo rm -rf ${btsdir}
-        echo -ne "[$stat_ok]   Removed all files from $btsdir\r"
+        echo -ne "[$stat_ok]  Removed all files from $btsdir\r"
         echo -ne '\n'
         echo "[$stat_y]   Please restart the script"
         exit 0
@@ -238,9 +238,9 @@ function install {
 
 function update {
   initcheck
-  echo  "[$stat_ok]   Updating BitTorrent Sync to the latest version"
+  echo  "[$stat_ok]  Updating BitTorrent Sync to the latest version"
   download $dllink
-  echo  "[$stat_ok]   Done"
+  echo  "[$stat_ok]  Done"
   btinitcscript
 }
 
