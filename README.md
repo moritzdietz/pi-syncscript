@@ -47,8 +47,8 @@ You do this by using the following syntax ```./btsync.sh yourURLhere```
 
 You will see some output to show you what it is doing or where it failed.  
 
-After it is done you want to have BitTorrent Sync after you restart it so type the following  
-```sudo update-rc.d btsync defaults```
+After the script is done you want to have it automatically start after you reboot your Raspberry Pi.  
+To do that, enter the following:```sudo update-rc.d btsync defaults```
 
 
 If you have any kind of productive contribution to this project, create a pull request! I would love to see people improving it. Especially since I know people will be screaming at their screen how ugly it is.
