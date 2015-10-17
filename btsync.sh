@@ -146,7 +146,6 @@ fi
 function download {
   sleep 0.7
   cd $btsdir
-  echo "This is input variable $dllink"
   if [ $? -ne 0 ]
     then
       echo "[$stat_x]   Error: Could not change to $btsdir since it does not exist"
