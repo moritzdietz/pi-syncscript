@@ -22,17 +22,17 @@ if [ "$(id -u)" == "0" ]; then
 fi
 
 function initcheck {
-  echo -ne "[$stat_y]   Trying to stop a running BitTorrent Sync instance\r"
-  sleep 0.7
-  sudo kill -15 `ps aux | grep btsync | grep config | awk '{print $2}'` &>/dev/null
+  echo "[$stat_y]   Trying to stop a running BitTorrent Sync instance"
+  sleep 0.6
+  syncpid=$(ps aux | grep btsync | grep config | awk '{print $2}')
+  sudo kill -15 $syncpid &>/dev/null
   if [ $? -ne 0 ]; then
-    echo -ne "[$stat_ok]  There is no instance of Bittorrent Sync running   \r"
-    sleep 0.7
+    echo "[$stat_ok]  There is no instance of BitTorrent Sync running   "
+    sleep 0.6
   else
-    echo -ne "[$stat_ok]  The running instance of BitTorrent Sync has been stopped\r"
-    sleep 0.7
+    echo "[$stat_ok]  The running instance of BitTorrent Sync has been stopped"
+    sleep 0.6
   fi
-  echo -ne '\n'
 }
 
 # This function is for the /etc/init.d/btsync script that you can call to start and stop the daemon
@@ -61,7 +61,7 @@ DAEMON=/home/${BTSYNC_USER}/.btsync/btsync
 start() {
     config=/home/${BTSYNC_USER}/.btsync/config
     if [ -f $config ]; then
-      echo "Starting BTSync for $BTSYNC_USER"
+      echo "Starting BTSync for $BTSYNC_USER (pid $dbpid)"
       start-stop-daemon --start --quiet -b -o -c $BTSYNC_USER -u $BTSYNC_USER --exec $DAEMON -- --config $config
     else
       echo "Couldn't start BTSync (no $config found)"
@@ -71,7 +71,7 @@ start() {
 stop() {
     dbpid=`pgrep -fu $BTSYNC_USER $DAEMON`
     if [ ! -z "$dbpid" ]; then
-      echo "Stopping BitTorrent Sync for $BTSYNC_USER"
+      echo "Stopping BitTorrent Sync for $BTSYNC_USER (pid $dbpid)"
       start-stop-daemon --stop -o -c $BTSYNC_USER -K -u $BTSYNC_USER -x $DAEMON
     fi
 }
@@ -79,7 +79,7 @@ stop() {
 status() {
     dbpid=`pgrep -fu $BTSYNC_USER $DAEMON`
     if [ -z "$dbpid" ]; then
-      echo "BitTorrent Sync for USER $BTSYNC_USER: not running."
+      echo "BitTorrent Sync for USER $BTSYNC_USER: not running"
     else
       echo "BitTorrent Sync for USER $BTSYNC_USER: running (pid $dbpid)"
     fi
@@ -144,39 +144,50 @@ fi
 
 
 function download {
-  sleep 0.7
+  sleep 0.6
   cd $btsdir
   if [ $? -ne 0 ]
     then
-      echo "[$stat_x]   Error: Could not change to $btsdir since it does not exist"
+      echo -ne "[$stat_x]   Error: Could not change to $btsdir since it does not exist\r"
+      echo -ne '\n'
       exit 1
   fi
   if [ -z "$dllink" ]; then
-      echo "[$stat_ok]  Downloading the latest stable version from BitTorrent Inc."
+      echo "[$stat_ok]  Downloading the latest stable version from BitTorrent Inc"
       curl -# -o btsync_arm.tar.gz https://download-cdn.getsync.com/stable/linux-arm/BitTorrent-Sync_arm.tar.gz
       if [ $? -ne 0 ]; then
-        echo "[$stat_x]   Error: There was an error downloading the file."
+        echo -ne "[$stat_x]   Error: There was an error downloading the file\r"
+        echo -ne '\n'
         exit 1
       fi
     else 
       echo "[$stat_ok]  Downloading the binary from the link provided"
       curl -# -o btsync_arm.tar.gz "$dllink"
       if [ $? -ne 0 ]; then
-        echo "[$stat_x]   Error: There was an error downloading the file. Check the URL and try again."
+        echo -ne "[$stat_x]   Error: There was an error downloading the file. Check the URL and try again\r"
+        echo -ne '\n'
         exit 1
       fi
   fi
   if [ $? -ne 0 ]; then
-      echo "[$stat_x]   Failed to download the file"
+      echo -ne "[$stat_x]   Failed to download the file\r"
+      echo -ne '\n'
       exit 1
   fi
   echo "[$stat_ok]  Successfully downloaded the binary"
   cd $btsdir
   tar -zxvf btsync_arm.tar.gz btsync &>/dev/null
-  echo "[$stat_ok]  Extraced the files to" $btsdir
+  if [ $? -ne 0 ]; then
+      echo -ne "[$stat_x]   Error: Could not extract $btsbinary\r"
+      echo -ne '\n'
+      exit 1
+  fi
+  echo "[$stat_ok]  Extraced the files to $btsdir"
   rm btsync_arm.tar.gz &>/dev/null
   if [ $? -ne 0 ]; then
-      echo "[$stat_x]   Error: Could not remove $btsdir/$btsbinary since it does not exist"
+      echo -ne "[$stat_x]   Error: Could not remove $btsdir/$btsbinary\r"
+      echo -ne '\n'
+      exit 1
   fi
 }
 
@@ -186,43 +197,40 @@ function install {
   initcheck
 
   if [ ! -d "$btsdir" ]; then
-    echo -ne "[$stat_ok]  Trying to create installation folder $btsdir\r"
-    sleep 0.7
+    echo "[$stat_ok]  Trying to create installation folder $btsdir"
+    sleep 0.6
     mkdir $btsdir
       if [ $? -ne 0 ]; then
         echo -ne "[$stat_x]   Could not create installation folder $btsdir\r"
         echo -ne '\n'
         exit 1
       fi
-    echo -ne "[$stat_ok]  The BitTorrent Sync installation folder has been created ($btsdir)"
-    echo -ne '\n'
-    sleep 0.7
+    echo "[$stat_ok]  The BitTorrent Sync installation folder has been created ($btsdir)"
+    sleep 0.6
   else
     echo -ne "[$stat_x]   The installation folder $btsdir already exists\r"
     echo -ne '\n'
-    sleep 0.7
+    sleep 0.6
     read -r -p "[$stat_x]   Remove files and folders inside $btsdir? [Y/N]: " response
     if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
         echo -ne "[$stat_y]   Removing all files in $btsdir\r"
         sudo rm -rf ${btsdir}
-        echo -ne "[$stat_ok]  Removed all files from $btsdir\r"
-        echo -ne '\n'
+        echo "[$stat_ok]  Removed all files from $btsdir"
         echo "[$stat_y]   Please restart the script"
         exit 0
     else
-        echo "[$stat_x]   Cannot install into $btsdir"
+        echo -ne "[$stat_x]   Cannot install into $btsdir\r"
         exit 1
     fi
     cd $btsdir
       if [ -f $btsdir"/"$btsbinary ]; then
-          echo -ne "[$stat_y]   An outdated binary file already exists\r"
+          echo "[$stat_y]   An outdated binary file already exists"
           sleep 1
-          echo -ne "[$stat_ok]  Trying to re-download the latest binary\r"
-          echo -ne '\n'
+          echo "[$stat_ok]  Trying to remove and re-download the latest binary"
           rm $btsdir"/"$btsbinary &>/dev/null
           if [ $? -ne 0 ]; then
           echo -ne "[$stat_x]   Error: Could not remove $btsdir"/"$btsbinary\r"
-          sleep 0.7
+          sleep 0.6
           exit 1
           fi
       fi
@@ -244,7 +252,7 @@ function update {
   btinitcscript
 }
 
-read -r -p "[$stat_y]   Do you want to install BitTorrent Sync or update it? [install(default)/update]: " response
+read -r -p "[$stat_y]   Do you want to install BitTorrent Sync or update it? [install(default)/(u)pdate]: " response
     if [[ $response =~ ^([u|U]|[u|U]pdate)$ ]]; then
       update
       exit 0
