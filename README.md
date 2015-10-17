@@ -8,7 +8,7 @@ This is a script to install and update your [BitTorrent Sync](https://www.getsyn
 Well, I have noticed that in the Sync community a lot of people have been downloading a package from a source that is no longer supported by it's creator thus it is outdated and causes a lot of headaches for people using it.  
 Especially since it was originally meant for the Debian and Ubuntu platform but people have been using it on their Raspberry Pi's as well.
 TL;DR is: don't use it. It is not supported anymore.  
-There are hints that BitTorrent Inc. will come up with their own solution. 
+There are hints that BitTorrent Inc. will come up with their own solution.  
 We'll see what happens ¯\\_(ツ)_/¯.
 
 ### What will this script do?
