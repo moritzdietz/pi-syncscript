@@ -36,7 +36,7 @@ curl -# -o btsync.sh https://raw.githubusercontent.com/moritzdietz/syncscript/ma
 chmod +x btsync.sh
 ```
 * Make sure to change the script at the appropriate places to your configuration (e.g. username you would like the script to run as, Sync configuration variables (listening port, username and password for WebGUI etc)).  
-Starting from line ```122``` the part for the BitTorrent Sync configuration file starts, there you input your own tweaks and information you would like to have.  
+Starting from line ```122``` the BitTorrent Sync configuration file starts, there you insert your own configuration pieces.
 My script will have a default configuration where BitTorrent Sync is available from but you should definitely modify it.
 * Run the script
 ```
