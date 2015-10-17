@@ -29,7 +29,7 @@ For the BitTorrent Sync configuration file, [here](http://help.getsync.com/custo
 * SSH into your Raspberry Pi
 * Download the script to a folder of your liking e.g. a folder where you keep all your scripts or just ```~/```
 ```
-curl -# -o btsync.sh https://raw.githubusercontent.com/moritzdietz/syncscript/master/btsync.sh
+curl -# -o btsync.sh https://raw.githubusercontent.com/moritzdietz/pi-syncscript/master/btsync.sh
 ```
 * Make the script executable
 ```
