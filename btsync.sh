@@ -146,8 +146,7 @@ fi
 function download {
   sleep 0.6
   cd $btsdir
-  if [ $? -ne 0 ]
-    then
+  if [ $? -ne 0 ]; then
       echo -ne "[$stat_x]   Error: Could not change to $btsdir since it does not exist\r"
       echo -ne '\n'
       exit 1
