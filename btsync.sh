@@ -290,9 +290,11 @@ function update {
 read -r -p "[$stat_y]   Do you want to install BitTorrent Sync or update it? [install(default)/(u)pdate/(b)ackup]: " response
     if [[ $response =~ ^([u|U]|[u|U]pdate)$ ]]; then
       update
+      echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo serice btsync start\""
       exit 0
     elif [[ $response =~ ^([b|B]|[b|B]ackup)$ ]]; then
       initcheck
       _backup
+      echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo serice btsync start\""
       exit 0
     fi
