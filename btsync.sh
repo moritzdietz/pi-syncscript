@@ -24,14 +24,20 @@ fi
 function initcheck {
   echo "[$stat_y]   Trying to stop a running BitTorrent Sync instance"
   sleep 0.6
-  syncpid=$(ps aux | grep btsync | grep config | awk '{print $2}')
-  sudo kill -15 $syncpid &>/dev/null
-  if [ $? -ne 0 ]; then
+  syncpid="$(ps aux | grep btsync | grep -v grep | grep -v /bin/bash | awk '{print $2}')"
+  if [ -z $syncpid ]; then
     echo "[$stat_ok]  There is no instance of BitTorrent Sync running   "
     sleep 0.6
   else
-    echo "[$stat_ok]  The running instance of BitTorrent Sync has been stopped"
-    sleep 0.6
+    sudo pkill -15 -x btsync &>/dev/null
+    if [ $? -ne 0 ]; then
+      echo "[$stat_x]  Error: There was an error stopping the BitTorrent Sync process"
+      sleep 0.6
+      exit 1
+    else
+      echo "[$stat_ok]  The running instance of BitTorrent Sync has been stopped (PID: $syncpid)"
+      sleep 0.6
+    fi
   fi
 }
 
