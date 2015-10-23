@@ -168,7 +168,7 @@ function download {
       fi
   fi
   if [ $? -ne 0 ]; then
-      echo -ne "[$stat_x]   Failed to download the file\r"
+      echo -ne "[$stat_x]   Error: There was an error downloading the file.\r"
       echo -ne '\n'
       exit 1
   fi
@@ -216,7 +216,7 @@ function install {
         echo "[$stat_y]   Please restart the script"
         exit 0
     else
-        echo -ne "[$stat_x]   Cannot install into $btsdir\r"
+        echo "[$stat_x]   Cannot install into $btsdir"
         exit 1
     fi
     cd $btsdir
