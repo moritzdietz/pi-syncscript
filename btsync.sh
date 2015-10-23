@@ -142,7 +142,6 @@ echo "[$stat_ok]  Created BitTorrent Sync configuration file ($btsdir/config)"
 fi
 }
 
-
 function download {
   sleep 0.6
   cd $btsdir
@@ -189,7 +188,6 @@ function download {
       exit 1
   fi
 }
-
 
 function install {
   # Calling the initial function to end any current btsync processes
@@ -258,26 +256,28 @@ function _backup {
   fi
   # The /proc directory exists while the command runs.
   while [ -e /proc/$! ]; do
-    echo -ne "[ooo] ${bkreason}\r"
+    echo -ne "[ooo] ${backuprsn}\r"
     sleep 0.2
-    echo -ne "[Ooo] ${bkreason}\r"
+    echo -ne "[Ooo] ${backuprsn}\r"
     sleep 0.2
-    echo -ne "[oOo] ${bkreason}\r"
+    echo -ne "[oOo] ${backuprsn}\r"
     sleep 0.2
-    echo -ne "[ooO] ${bkreason}\r"
+    echo -ne "[ooO] ${backuprsn}\r"
     sleep 0.2
-    echo -ne "[oOo] ${bkreason}\r"
+    echo -ne "[ooo] ${backuprsn}\r"
     sleep 0.2
-    echo -ne "[Ooo] ${bkreason}\r"
+    echo -ne "[ooO] ${backuprsn}\r"
     sleep 0.2
-    echo -ne "[ooo] ${bkreason}\r"
+    echo -ne "[oOo] ${backuprsn}\r"
+    sleep 0.2
+    echo -ne "[Ooo] ${backuprsn}\r"
+    sleep 0.2
+    echo -ne "[ooo] ${backuprsn}\r"
   done
-  echo -ne '\n'
-  echo -ne "[$stat_ok]  BitTorrent Sync has been successfully backed up\r"
+  echo -ne "[$stat_ok]  BitTorrent Sync has been successfully backed up                                        \r"
   echo -ne '\n'
   sudo chown $user:$(groups $user | awk '{print $3}') -R ${btsdir}_backup
 }
-
 
 function update {
   initcheck
@@ -290,9 +290,18 @@ function update {
 read -r -p "[$stat_y]   Do you want to install BitTorrent Sync or update it? [install(default)/(u)pdate/(b)ackup]: " response
     if [[ $response =~ ^([u|U]|[u|U]pdate)$ ]]; then
       update
+      echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo serice btsync start\""
       exit 0
     elif [[ $response =~ ^([b|B]|[b|B]ackup)$ ]]; then
       initcheck
       _backup
+      echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo serice btsync start\""
+      exit 0
+    elif [[ $response =~ ^([i|I]|[i|I]nstall)$ ]]; then
+      install
+      echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo serice btsync start\""
+      exit 0
+    else
+      echo "[$stat_x]   The did not choose one of the script options provided. Please try again."
       exit 0
     fi

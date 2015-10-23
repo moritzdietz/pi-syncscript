@@ -14,9 +14,9 @@ This script will do the following after you run it:
 * It will ask you if you want to install or update an already existing installation using script
 * Download the latest public available version of the ARM binary from BitTorrent Inc.'s website  
 Make sure to have ```curl``` installed  
-* Extract it to a predefined location
+* Extract it to a predefined location (Default: ```/home/pi/.btsync```)
 * Create a script ```/etc/init.d/btsync``` so it runs after boot and you can easily start/stop it
-* Create a configuration file for BitTorrent Sync to run from
+* Create a configuration file for BitTorrent Sync to run from (Default: ```/home/pi/.btsync/config```)
 * Ask if you want to create a backup of your current running BitTorrent Sync installation
 
 Prior of running this script you want to verify that the user variable on line 6 is correct.  
