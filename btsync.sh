@@ -287,7 +287,7 @@ function update {
   btinitcscript
 }
 
-read -r -p "[$stat_y]   Do you want to install BitTorrent Sync or update it? [install(default)/(u)pdate/(b)ackup]: " response
+read -r -p "[$stat_y]   Choose one of the BitTorrent Sync Script options [(i)nstall(default)/(u)pdate/(b)ackup]: " response
     if [[ $response =~ ^([u|U]|[u|U]pdate)$ ]]; then
       update
       echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo serice btsync start\""
@@ -296,5 +296,12 @@ read -r -p "[$stat_y]   Do you want to install BitTorrent Sync or update it? [in
       initcheck
       _backup
       echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo serice btsync start\""
+      exit 0
+    elif [[ $response =~ ^(""|[i|I]|[i|I]nstall)$ ]]; then
+      install
+      echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo serice btsync start\""
+      exit 0
+    else
+      echo "[$stat_x]   You did not choose one of the provided script options. Please try again."
       exit 0
     fi
