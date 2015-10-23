@@ -11,7 +11,7 @@ TL;DR is: don't use it. It is not supported anymore. There are hints that BitTor
 ### What will this script do?
 
 This script will do the following after you run it:
-* It will ask you if you want to install or update an already existing installation using script
+* It will ask you if you want to install, update or backup an already existing installation using script
 * Download the latest public available version of the ARM binary from BitTorrent Inc.'s website  
 Make sure to have ```curl``` installed  
 * Extract it to a predefined location (Default: ```/home/pi/.btsync```)
