@@ -174,7 +174,7 @@ function download {
       fi
   fi
   if [ $? -ne 0 ]; then
-      echo -ne "[$stat_x]   Error: There was an error downloading the file.\r"
+      echo -ne "[$stat_x]   Error: There was an error downloading the file\r"
       echo -ne '\n'
       exit 1
   fi
