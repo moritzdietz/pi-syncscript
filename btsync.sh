@@ -297,4 +297,11 @@ read -r -p "[$stat_y]   Do you want to install BitTorrent Sync or update it? [in
       _backup
       echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo serice btsync start\""
       exit 0
+    elif [[ $response =~ ^([i|I]|[i|I]nstall)$ ]]; then
+      install
+      echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo serice btsync start\""
+      exit 0
+    else
+      echo "[$stat_x]   The did not choose one of the script options provided. Please try again."
+      exit 0
     fi
