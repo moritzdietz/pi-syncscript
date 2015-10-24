@@ -15,6 +15,7 @@ stat_y=${yellow}?${reset}
 stat_x=${red}X${reset}
 stat_ok=${green}OK${reset}
 dllink="$1"
+err_cmd=""
 
 if [ "$(id -u)" == "0" ]; then
     echo "[$stat_x]   This script cannot run as root"
@@ -24,14 +25,23 @@ fi
 function initcheck {
   echo "[$stat_y]   Trying to stop a running BitTorrent Sync instance"
   sleep 0.6
-  syncpid=$(ps aux | grep btsync | grep config | awk '{print $2}')
-  sudo kill -15 $syncpid &>/dev/null
-  if [ $? -ne 0 ]; then
+  syncpid="$(ps aux | grep btsync | grep -v grep | grep -v /bin/bash | awk '{print $2}')"
+  if [ -z $syncpid ]; then
     echo "[$stat_ok]  There is no instance of BitTorrent Sync running   "
     sleep 0.6
   else
-    echo "[$stat_ok]  The running instance of BitTorrent Sync has been stopped"
-    sleep 0.6
+    err_cmd=$(sudo pkill -15 -x btsync 2>&1 >/dev/null)
+    if [ $? -ne 0 ]; then
+      echo "[$stat_x]   Error: There was an error stopping the BitTorrent Sync process"
+      if [ ! $err_cmd=="" ]; then
+        echo "[$stat_x]   $err_cmd"
+      fi
+      sleep 0.6
+      exit 1
+    else
+      echo "[$stat_ok]  The running instance of BitTorrent Sync has been stopped (PID: $syncpid)"
+      sleep 0.6
+    fi
   fi
 }
 
@@ -144,47 +154,52 @@ fi
 
 function download {
   sleep 0.6
-  cd $btsdir
+  err_cmd=$(cd $btsdir 2>&1 >/dev/null)
   if [ $? -ne 0 ]; then
-      echo -ne "[$stat_x]   Error: Could not change to $btsdir since it does not exist\r"
-      echo -ne '\n'
-      exit 1
-  fi
-  if [ -z "$dllink" ]; then
-      echo "[$stat_ok]  Downloading the latest stable version from BitTorrent Inc"
-      curl -# -o btsync_arm.tar.gz https://download-cdn.getsync.com/stable/linux-arm/BitTorrent-Sync_arm.tar.gz
-      if [ $? -ne 0 ]; then
-        echo -ne "[$stat_x]   Error: There was an error downloading the file\r"
-        echo -ne '\n'
+      echo "[$stat_x]   Error: Could not change to $btsdir since it does not exist"
+      echo "[$stat_x]   $err_cmd"
+      read -r -p "[$stat_y]   It seems BitTorrent Sync is not installed. Do you want to Install it? [Y/N]: " response
+      if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        install
+      else
         exit 1
+      fi
+  fi
+  if [ -z $dllink ]; then
+      echo "[$stat_ok]  Downloading the latest stable version from BitTorrent Inc"
+      curl -# -o $btsdir/btsync_arm.tar.gz https://download-cdn.getsync.com/stable/linux-arm/BitTorrent-Sync_arm.tar.gz
+      if [ $? -ne 0 ]; then
+        echo "[$stat_x]   Error: There was an error downloading the file"
+        exit 1
+      else
+        echo "[$stat_ok]  Successfully downloaded the binary"
       fi
     else 
       echo "[$stat_ok]  Downloading the binary from the link provided"
-      curl -# -o btsync_arm.tar.gz "$dllink"
+      curl -# -o $btsdir/btsync_arm.tar.gz $dllink
       if [ $? -ne 0 ]; then
-        echo -ne "[$stat_x]   Error: There was an error downloading the file. Check the URL and try again\r"
-        echo -ne '\n'
+        echo "[$stat_x]   Error: There was an error downloading the file. Check the URL and try again"
         exit 1
+      else
+        echo "[$stat_ok]  Successfully downloaded the binary"
       fi
   fi
   if [ $? -ne 0 ]; then
-      echo -ne "[$stat_x]   Failed to download the file\r"
+      echo -ne "[$stat_x]   Error: There was an error downloading the file\r"
       echo -ne '\n'
       exit 1
   fi
-  echo "[$stat_ok]  Successfully downloaded the binary"
-  cd $btsdir
-  tar -zxvf btsync_arm.tar.gz btsync &>/dev/null
+  err_cmd=$(tar -zxvf $btsdir/btsync_arm.tar.gz -C $btsdir btsync 2>&1 >/dev/null)
   if [ $? -ne 0 ]; then
-      echo -ne "[$stat_x]   Error: Could not extract $btsbinary\r"
-      echo -ne '\n'
+      echo "[$stat_x]   Error: Could not extract $btsbinary"
+      echo "[$stat_x]   $err_cmd"
       exit 1
   fi
-  echo "[$stat_ok]  Extraced the files to $btsdir"
-  rm btsync_arm.tar.gz &>/dev/null
+  echo "[$stat_ok]  Extraced the BitTorrent Sync binary to $btsdir"
+  err_cmd=$(rm $btsdir/btsync_arm.tar.gz 2>&1 >/dev/null)
   if [ $? -ne 0 ]; then
-      echo -ne "[$stat_x]   Error: Could not remove $btsdir/$btsbinary\r"
-      echo -ne '\n'
+      echo "[$stat_x]   Error: Could not remove $btsdir/$btsbinary"
+      echo "[$stat_x]   $err_cmd"
       exit 1
   fi
 }
@@ -196,10 +211,10 @@ function install {
   if [ ! -d "$btsdir" ]; then
     echo "[$stat_ok]  Trying to create installation folder $btsdir"
     sleep 0.6
-    mkdir $btsdir
+    err_cmd=$(mkdir $btsdir 2>&1 >/dev/null)
       if [ $? -ne 0 ]; then
-        echo -ne "[$stat_x]   Could not create installation folder $btsdir\r"
-        echo -ne '\n'
+        echo "[$stat_x]   Could not create installation folder $btsdir"
+        echo "[$stat_x]   $err_cmd"
         exit 1
       fi
     echo "[$stat_ok]  The BitTorrent Sync installation folder has been created ($btsdir)"
@@ -216,7 +231,7 @@ function install {
         echo "[$stat_y]   Please restart the script"
         exit 0
     else
-        echo -ne "[$stat_x]   Cannot install into $btsdir\r"
+        echo "[$stat_x]   Did not install into $btsdir"
         exit 1
     fi
     cd $btsdir
@@ -224,11 +239,12 @@ function install {
           echo "[$stat_y]   An outdated binary file already exists"
           sleep 1
           echo "[$stat_ok]  Trying to remove and re-download the latest binary"
-          rm $btsdir"/"$btsbinary &>/dev/null
+          err_cmd=$(rm $btsdir/$btsbinary 2>&1 >/dev/null)
           if [ $? -ne 0 ]; then
-          echo -ne "[$stat_x]   Error: Could not remove $btsdir"/"$btsbinary\r"
-          sleep 0.6
-          exit 1
+            echo "[$stat_x]   Error: Could not remove $btsdir"/"$btsbinary"
+            echo "[$stat_x]   $err_cmd"
+            sleep 0.6
+            exit 1
           fi
       fi
   fi
@@ -249,8 +265,7 @@ function _backup {
     sudo cp -r ${btsdir} ${btsdir}_backup &>/dev/null & # Copy the file in the background.
   else
     # That actually doesn't work yet... still have to figure that one out
-    echo -ne '\n'
-    echo "[$stat_x]   Error: Copying files failed"
+    echo "[$stat_x]   Error: Copying $btsdir failed"
     sleep 0.7
     exit 1
   fi
