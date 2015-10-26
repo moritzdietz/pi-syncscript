@@ -16,17 +16,13 @@ BTSYNC_USER="pi"
 DAEMON=/usr/bin/btsync
 
 init_folders(){
-    if [ ! -d /home/${BTSYNC_USER}/.btsync/data ]; then
-      mkdir -p /home/${BTSYNC_USER}/.btsync/data
-      chown ${BTSYNC_USER} /home/${BTSYNC_USER}/.btsync/data
+    if [ ! -d /home/pi/.btsync/data ]; then
+      mkdir -p /home/pi/.btsync/data
+      chown pi /home/pi/.btsync/data
     fi
-    if [ ! -d /home/${BTSYNC_USER}/.btsync/data/.syncsystem ]; then
-      mkdir -p /home/${BTSYNC_USER}/.btsync/data/.syncsystem
-      chown ${BTSYNC_USER} /home/${BTSYNC_USER}/.btsync/data/.syncsystem
-    fi
-    if [ ! -d /home/${BTSYNC_USER}/.btsync/data/syncaod ]; then
-      mkdir -p /home/${BTSYNC_USER}/.btsync/data/syncaod
-      chown ${BTSYNC_USER} /home/${BTSYNC_USER}/.btsync/data/syncaod
+    if [ ! -d /home/pi/.btsync/data/.syncsystem ]; then
+      mkdir -p /home/pi/.btsync/data/.syncsystem
+      chown pi /home/pi/.btsync/data/.syncsystem
     fi
 }
 
