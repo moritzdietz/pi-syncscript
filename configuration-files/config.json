@@ -1,0 +1,16 @@
+{
+  "vendor" : "Raspberry Pi",
+  "device_name": "Raspberry Pi",
+  "display_new_version": true,
+  "profiler_enabled" : false,
+  "send_statistics" : false,
+  "lan_encrypt_data" : false,
+  "storage_path" : "/home/pi/.btsync/data/.syncsystem",
+  "pid_file" : "/home/pi/.btsync/data/.syncsystem/btsync.pid",
+  "webui" :
+  {
+    "listen" : "0.0.0.0:8888",
+    "directory_root" : "/",
+    "directory_root_policy" : "all"
+  }
+}

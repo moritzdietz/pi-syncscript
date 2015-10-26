@@ -1,0 +1,76 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: btsync
+# Required-Start: $local_fs $remote_fs
+# Required-Stop: $local_fs $remote_fs
+# Should-Start: $network
+# Should-Stop: $network
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: daemonized version of BiTorrent Sync.
+# Description: Starts the BitTorrent Sync daemon for pi user.
+### END INIT INFO
+
+# Replace with linux user you want to run BitTorrent Sync client for
+BTSYNC_USER="pi"
+DAEMON=/usr/bin/btsync
+
+init_folders(){
+    if [ ! -d /home/pi/.btsync/data ]; then
+      mkdir -p /home/pi/.btsync/data
+      chown pi /home/pi/.btsync/data
+    fi
+    if [ ! -d /home/pi/.btsync/data/.syncsystem ]; then
+      mkdir -p /home/pi/.btsync/data/.syncsystem
+      chown pi /home/pi/.btsync/data/.syncsystem
+    fi
+}
+
+start() {
+    config=/etc/btsync/config.json
+    if [ -f $config ]; then
+      init_folders
+      echo "Starting BitTorrent Sync for $BTSYNC_USER"
+      start-stop-daemon --start --quiet -b -o -c $BTSYNC_USER -u $BTSYNC_USER --exec $DAEMON -- --config $config
+    else
+      echo "Couldn't start BitTorrent Sync (no $config found)"
+    fi
+}
+
+stop() {
+    dbpid=`pgrep -fu $BTSYNC_USER $DAEMON`
+    if [ ! -z "$dbpid" ]; then
+      echo "Stopping btsync for $BTSYNC_USER"
+      start-stop-daemon --stop -o -c $BTSYNC_USER -K -u $BTSYNC_USER -x $DAEMON
+    fi
+}
+
+status() {
+    dbpid=`pgrep -fu $BTSYNC_USER $DAEMON`
+    if [ -z "$dbpid" ]; then
+      echo "BitTorrent Sync for USER $BTSYNC_USER: not running."
+    else
+      echo "BitTorrent Sync for USER $BTSYNC_USER: running (pid $dbpid)"
+    fi
+}
+
+case "$1" in
+  start)
+  start
+  ;;
+  stop)
+  stop
+  ;;
+  restart|reload|force-reload)
+  stop
+  start
+  ;;
+  status)
+  status
+  ;;
+  *)
+  echo "Usage: /etc/init.d/btsync {start|stop|reload|force-reload|restart|status}"
+    exit 1
+esac
+
+exit 0
