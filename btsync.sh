@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 #
 #Change the $user variable to the user you would like Sync to be installed to and later run as
 #Default is pi
