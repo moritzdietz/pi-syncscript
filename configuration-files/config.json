@@ -12,11 +12,11 @@
   "upload_limit" : 0,
   "delete_folder_from_disk" : true,
   "folder_defaults.delete_to_trash" : true,
-  "storage_path" : "/home/pi/data/.syncsystem",
-  "pid_file" : "/home/pi/data/.syncsystem/btsync.pid",
+  "storage_path" : "/home/pi/.btsync/data/.syncsystem",
+  "pid_file" : "/home/pi/.btsync/data/.syncsystem/btsync.pid",
   "webui" :
   {
     "listen" : "0.0.0.0:8888",
-    "directory_root" : "/"
+    "directory_root" : "/home/pi/"
   }
 }
