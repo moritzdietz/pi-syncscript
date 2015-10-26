@@ -1,0 +1,22 @@
+{
+  "vendor" : "Raspberry Pi",
+  "device_name": "Raspberry Pi",
+  "display_new_version": false,
+  "listening_port" : 0,
+  "use_upnp" : true,
+  "use dht" : false,
+  "profiler_enabled" : false,
+  "send_statistics" : false,
+  "lan_encrypt_data" : false,
+  "download_limit" : 0,
+  "upload_limit" : 0,
+  "delete_folder_from_disk" : true,
+  "folder_defaults.delete_to_trash" : true,
+  "storage_path" : "/home/pi/data/.syncsystem",
+  "pid_file" : "/home/pi/data/.syncsystem/btsync.pid",
+  "webui" :
+  {
+    "listen" : "0.0.0.0:8888",
+    "directory_root" : "/"
+  }
+}
