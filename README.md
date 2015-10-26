@@ -42,8 +42,9 @@ chmod +x btsync.sh
 [Here](http://help.getsync.com/customer/portal/articles/2018454-running-sync-in-configuration-mode) and [here](http://help.getsync.com/customer/en/portal/articles/1902098-sync-preferences-general-advanced-more-options) are help articles from the [Sync Help Center](http://help.getsync.com/) that will guide you through the configuration options.
 
 You can also provide a direct link to an ARM binarie that has been posted from the Administrators on the forum, but is not yet available through the getsync.com website.  
-You do this by using the following syntax ```./btsync.sh yourURLhere``` 
-Please be mindful that other URLs/links I can not garantuee that the script might work like expected. Only use links provided by the Sync Staff on the forums!
+You do this by using the following syntax ```./btsync.sh yourURLhere```  
+Please be mindful: by using other URLs/links I can not garantuee that the script might work like expected!  
+Only use links provided by the Sync Staff on the forums or from the official BitTorrent Inc. website.
 
 After the script is done you want to have it automatically start after you reboot your Raspberry Pi.  
 To do that, enter the following:```sudo update-rc.d btsync defaults```
