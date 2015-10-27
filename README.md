@@ -1,5 +1,5 @@
 
-Raspberry Pi Sync Script
+Raspberry Pi + Sync Script
 =======
 
 This is a script to manage your [BitTorrent Sync](https://www.getsync.com/) installation on your [Raspberry Pi](https://www.raspberrypi.org/).
