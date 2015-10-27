@@ -2,7 +2,7 @@
 Raspberry Pi Sync Script
 =======
 
-This is a script to install and update your [BitTorrent Sync](https://www.getsync.com/) installation on your [Raspberry Pi](https://www.raspberrypi.org/).
+This is a script to manage your [BitTorrent Sync](https://www.getsync.com/) installation on your [Raspberry Pi](https://www.raspberrypi.org/).
 
 ### Why? I thought there already is a working "Debian Package"?!
 
@@ -39,7 +39,7 @@ chmod +x btsync.sh
 ```
 ./btsync.sh
 ```
-You can also provide a direct link to an ARM binarie that has been posted from the Administrators on the forum, but is not yet available through the getsync.com website.  
+You can also provide a direct link to an ARM binary that has been posted from the Administrators on the forum, but is not yet available through the https://getsync.com website.  
 You do this by using the syntax ```./btsync.sh yourURLhere```  
 Please be mindful: by using other URLs/links I can not garantuee that the script will work like expected!  
 Only use links provided by the Sync Staff on the forums or from the official BitTorrent Inc. website.
@@ -51,7 +51,7 @@ After the script is done, you want to have it automatically start after you rebo
 To do that enter the following:```sudo update-rc.d btsync defaults```
 
 If you have any kind of productive contribution to this project, create a pull request!  
-I would love to see people improving it. Especially since I know people will be screaming at their screen how ugly it is.
+I would love to see people improving it.
 
 <sub>**Disclaimer**</sub>
 
