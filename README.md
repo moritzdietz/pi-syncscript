@@ -1,3 +1,4 @@
+
 Raspberry Pi Sync Script
 =======
 
@@ -51,3 +52,6 @@ To do that enter the following:```sudo update-rc.d btsync defaults```
 
 If you have any kind of productive contribution to this project, create a pull request!  
 I would love to see people improving it. Especially since I know people will be screaming at their screen how ugly it is.
+
+<sub>**Disclaimer**</sub>
+<sub><sub>This site is not affiliated, endorsed or supported by DRI in any way. The use of information and software provided on this website may be used at your own risk. The information and software available on this website are provided as-is without any warranty or guarantee. By visiting this website you agree that: (1) We take no liability under any circumstance or legal theory for any software, error, omissions, loss of data or damage of any kind related to your use or exposure to any information provided on this site; (2) All software are made “AS AVAILABLE” and “AS IS” without any warranty or guarantee. All express and implied warranties are disclaimed. Some states do not allow limitations of incidental or consequential damages or on how long an implied warranty lasts, so the above may not apply to you.</sub></sub>
