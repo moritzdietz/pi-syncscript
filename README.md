@@ -12,7 +12,7 @@ TL;DR is: don't use it. It is not supported anymore. There are hints that BitTor
 ### What will this script do?
 
 This script will do the following after you run it:
-* Ask you to install, update, backup or remove an already existing installation (of this script)
+* Ask you if you want to install it or update, backup or remove an already existing installation (of this script)
 * Download the latest public available version of the ARM binary from BitTorrent Inc.'s website  
   Make sure to have ```curl``` installed  
 * Extract the downloaded binary to a predefined location ```/usr/bin/btsync```
