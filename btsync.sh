@@ -143,7 +143,7 @@ function btsync_initscript {
         sleep 0.6
         exit 1
       else
-        sed -i.tmp "s/pi/$user/" $btsdir/btsync_init
+        sed -r -i.tmp "s/\bpi\b/$user/g" $btsdir/btsync_init
         sudo mv $btsdir/btsync_init /etc/init.d/btsync
         chmod 755 /etc/init.d/btsync && sudo chown root:root /etc/init.d/btsync
         echo "[$stat_ok]  Created /etc/init.d/btsync script"
@@ -160,7 +160,7 @@ function btsyncconfig {
         sleep 0.6
         exit 1
       else
-        sed -i.tmp "s/pi/$user/" $btsdir/config.json
+        sed -r -i.tmp "s/\bpi\b/$user/g" $btsdir/config.json
         if [ ! -d /etc/btsync/ ]; then
           sudo mkdir -p /etc/btsync/
         fi
