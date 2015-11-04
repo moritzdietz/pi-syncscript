@@ -30,7 +30,7 @@ If that is the case for you, you don't need to change anything. Just follow the 
 * SSH into your Raspberry Pi
 * Download the script to a folder where you keep all your scripts or just ```~/```
 ```
-curl -# -o btsync.sh https://raw.githubusercontent.com/moritzdietz/pi-syncscript/master/btsync.sh
+curl -o btsync.sh https://raw.githubusercontent.com/moritzdietz/pi-syncscript/master/btsync.sh
 ```
 * Make the script executable
 ```
