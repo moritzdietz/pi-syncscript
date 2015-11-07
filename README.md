@@ -6,8 +6,7 @@ This is a script to manage your [BitTorrent Sync](https://www.getsync.com/) inst
 
 ### Why? I thought there already is a working "Debian Package"?!
 
-Well, I have noticed that in the Sync community a lot of people have been using a source that is no longer supported by it's creator, thus it is outdated and causes headaches for people using it and supporting BitTorrent Sync in general. It was originally meant for the Debian and Ubuntu platform but there was a way to install it on your Raspberry Pi and then doing some re-configuration of setup- and config-files to have it work properly.
-TL;DR is: don't use it. It is not supported anymore. There are hints that BitTorrent Inc. will come up with their own solution. We'll see what happens ¯\\_(ツ)_/¯.
+Well, I have noticed that in the Sync community a lot of people have been using a source that is no longer supported by it's creator, thus it is outdated and causes headaches for people using it and supporting BitTorrent Sync in general. TL;DR is: don't use it. It is not supported anymore. There are hints that BitTorrent Inc. will come up with their own solution. We'll see what happens ¯\\_(ツ)_/¯.
 
 ### What will this script do?
 
@@ -18,10 +17,10 @@ This script will do the following after you run it:
  * Make sure to have ```curl``` installed  
 * Extract the downloaded binary to a predefined location ```/usr/bin/btsync```
 * Create an ```/etc/init.d/btsync``` script so you can easily start/stop it
-* Create a configuration file for BitTorrent Sync to run from ```/etc/btsync/config.json```
+* Create a configuration file for it to run from ```/etc/btsync/config.json```
 * Create a data directory for it's databases etc. in ```/home/pi/.btsync/```
 
-Prior to running this script you want to verify that the user variable on line 6 is correct.  
+Prior to running this script you want to verify that the user variable on line 5 is correct.  
 99% (that is my estimate ;D) are running and using the Raspberry Pi with the default user ```pi```.  
 If that is the case for you, you don't need to change anything. Just follow the instructions below.
 
@@ -53,6 +52,11 @@ To do that enter the following:```sudo update-rc.d btsync defaults```
 
 If you have any kind of productive contribution to this project, create a pull request!  
 I would love to see people improving it.
+
+##### "Your script is not good etiquette"
+Well, :fu:!  
+Just go and setup and maintain a repository yourself and deal withpeople DDoSing you etc.
+
 
 <sub>**Disclaimer**</sub>
 
