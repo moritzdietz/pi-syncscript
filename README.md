@@ -54,8 +54,8 @@ If you have any kind of productive contribution to this project, create a pull r
 I would love to see people improving it.
 
 ##### "Your script is not good etiquette"
-Well, :fu:!  
-Well I am not gonna set up a repository. Just go and setup one yourself and deal withpeople DDoSing you etc.
+Well, :fu:.  
+I am not gonna set up a repository. Just go and setup one yourself and deal withpeople DDoSing you etc.
 
 
 <sub>**Disclaimer**</sub>
