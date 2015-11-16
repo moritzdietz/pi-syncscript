@@ -11,7 +11,7 @@ Well, I have noticed that in the Sync community a lot of people have been using 
 ### What will this script do?
 
 This script will do the following after you run it:
-* Ask if you want to install it or update, backup, remove an already existing installation
+* Ask if you want to install, update, backup or remove an already existing installation
  * Update, backup and remove only work when BitTorrent Sync was installed with this script
 * Download the latest public available version of the ARM binary from BitTorrent Inc.'s website  
  * Make sure to have ```curl``` installed  
@@ -55,7 +55,7 @@ I would love to see people improving it.
 
 ##### "Your script is not good etiquette"
 Well, :fu:.  
-I am not gonna set up a repository. Just go and setup one yourself and deal withpeople DDoSing you etc.
+I am not gonna set up a repository. Go and setup one yourself and deal withpeople DDoSing you etc.
 
 
 <sub>**Disclaimer**</sub>
