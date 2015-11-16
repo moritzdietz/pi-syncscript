@@ -53,9 +53,8 @@ To do that enter the following:```sudo update-rc.d btsync defaults```
 If you have any kind of productive contribution to this project, create a pull request!  
 I would love to see people improving it.
 
-##### "Your script is not good etiquette"
-Well, :fu:.  
-I am not gonna set up a repository. Go and setup one yourself and deal withpeople DDoSing you etc.
+##### "Your script sucks because X"
+Well, fuck you. :)
 
 
 <sub>**Disclaimer**</sub>
