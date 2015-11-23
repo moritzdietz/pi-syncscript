@@ -30,7 +30,7 @@ function stop_sync {
   else
     err_cmd=$(sudo pkill -15 -x btsync 2>&1 >/dev/null)
     if [ $? -ne 0 ]; then
-      echo "[$stat_x]   Error: There was an error stopping the BitTorrent Sync process"
+      echo "[$stat_x]   Error: There was an error stopping the BitTorrent Sync instance"
       if [ ! $err_cmd=="" ]; then
         echo "[$stat_x]   $err_cmd"
       fi
@@ -53,17 +53,16 @@ function install_preperations {
         echo "[$stat_x]   $err_cmd"
         exit 1
       fi
-    echo "[$stat_ok]  The BitTorrent Sync installation folder has been created ($btsdir)"
+    echo "[$stat_ok]  BitTorrent Sync installation folder has been created ($btsdir)"
     sleep 0.6
   else
-    echo -ne "[$stat_x]   The installation folder $btsdir already exists\r"
-    echo -ne '\n'
+    echo "[$stat_x]   BitTorrent Sync installation folder $btsdir already exists"
     sleep 0.6
-    read -r -p "[$stat_x]   Remove files and folders inside $btsdir? [Y/N]: " response
+    read -r -p "[$stat_x]   Delete all files and sub-folders inside $btsdir? [Y/N]: " response
     if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
-        echo -ne "[$stat_y]   Removing all files in $btsdir\r"
+        echo -ne "[$stat_y]   Deleting all files in $btsdir\r"
         sudo rm -rf ${btsdir}
-        echo "[$stat_ok]  Removed all files from $btsdir"
+        echo "[$stat_ok]  Deleteted all files and sub-folders from $btsdir"
         echo "[$stat_y]   Please restart the script"
         exit 0
     else
@@ -71,7 +70,7 @@ function install_preperations {
         exit 1
     fi
       if [ -f $btsdir/btsync_arm.tar.gz ]; then
-          echo "[$stat_y]   An outdated binary file already exists"
+          echo "[$stat_y]   A binary file already exists"
           sleep 0.6
           echo "[$stat_ok]  Trying to remove and re-download the latest binary"
           err_cmd=$(rm $btsdir/btsync_arm.tar.gz 2>&1 >/dev/null)
@@ -109,11 +108,11 @@ function install {
         echo "[$stat_x]   Error: There was an error downloading the file using the link you provided. Please check the URL and try again"
         exit 1
       else
-        echo "[$stat_ok]  Successfully downloaded the binary"
+        echo "[$stat_ok]  Successfully downloaded the BiTorrent Sync binary"
       fi
   fi
   if [ $? -ne 0 ]; then
-      echo -ne "[$stat_x]   Error: There was an error downloading the file\r"
+      echo -ne "[$stat_x]   Error: There was an error downloading the BiTorrent Sync binary\r"
       echo -ne '\n'
       exit 1
   fi
@@ -173,41 +172,32 @@ function btsyncconfig {
 }
 
 function backup {
-  bkreason="[$stat_ok]  The BitTorrent Sync installation folder is being backed up as (${btsdir}_backup)"
+  backup_date=$(date +"%d-%m-%Y_%H-%M-%S")
+  backup_reason="The BitTorrent Sync is being backed up as (btsync_backup_$backup_date.tar.gz)"
   # Look for the 4 common signals that indicate this script was killed.
   # If the background command was started, kill it, too.
   if [ -e ${btsdir} ]; then
     trap '[ -z $! ] || kill $!' SIGHUP SIGINT SIGQUIT SIGTERM
-    sudo cp -r ${btsdir} ${btsdir}_backup &>/dev/null && sudo cp /etc/init.d/btsync ${btsdir}_backup && sudo cp /etc/btsync/config.json ${btsdir}_backup & # Copy the file in the background.
+    tar -czPf /home/$user/btsync_backup_$backup_date.tar.gz /etc/init.d/btsync /etc/btsync/config.json /usr/bin/btsync ${btsdir} --exclude="*.log" --exclude="*.journal" --exclude="sync.log.*.zip" & # Backup the files in the background.
   else
     # That actually doesn't work yet... still have to figure that one out
-    echo "[$stat_x]   Error: Copying $btsdir failed"
+    echo "[$stat_x]   Error: Copying failed"
     sleep 0.7
     exit 1
   fi
   # The /proc directory exists while the command runs.
   while [ -e /proc/$! ]; do
-    echo -ne "[ooo] ${backuprsn}\r"
-    sleep 0.2
-    echo -ne "[Ooo] ${backuprsn}\r"
-    sleep 0.2
-    echo -ne "[oOo] ${backuprsn}\r"
-    sleep 0.2
-    echo -ne "[ooO] ${backuprsn}\r"
-    sleep 0.2
-    echo -ne "[ooo] ${backuprsn}\r"
-    sleep 0.2
-    echo -ne "[ooO] ${backuprsn}\r"
-    sleep 0.2
-    echo -ne "[oOo] ${backuprsn}\r"
-    sleep 0.2
-    echo -ne "[Ooo] ${backuprsn}\r"
-    sleep 0.2
-    echo -ne "[ooo] ${backuprsn}\r"
+    echo -ne "[ooo] ${backup_reason}\r" && sleep 0.2
+    echo -ne "[Ooo] ${backup_reason}\r" && sleep 0.2
+    echo -ne "[oOo] ${backup_reason}\r" && sleep 0.2
+    echo -ne "[ooO] ${backup_reason}\r" && sleep 0.2
+    echo -ne "[ooo] ${backup_reason}\r" && sleep 0.2
+    echo -ne "[ooO] ${backup_reason}\r" && sleep 0.2
+    echo -ne "[oOo] ${backup_reason}\r" && sleep 0.2
+    echo -ne "[Ooo] ${backup_reason}\r" && sleep 0.2
+    echo -ne "[ooo] ${backup_reason}\r"
   done
-  echo -ne "[$stat_ok]  BitTorrent Sync has been successfully backed up                                        \r"
-  echo -ne '\n'
-  sudo chown $user:$(groups $user | awk '{print $3}') -R ${btsdir}_backup
+  echo -e "\e[0K\r[$stat_ok]  BitTorrent Sync has been successfully backed up"  
 }
 
 function remove {
@@ -218,7 +208,7 @@ function remove {
   echo "[$stat_x]   /etc/btsync/config.json"
   echo "[$stat_x]   /usr/bin/btsync"
   echo "[$stat_x]   Files and folders that are being synced are not affected by this"
-  read -r -p "[$stat_x]   Remove BiTtorrent Sync? Please type out your option (yes/no(default)): " response
+  read -r -p "[$stat_x]   Remove BiTtorrent Sync? (yes/no(default)): " response
     if [[ $response =~ ^([yY][eE][sS])$ ]]; then
       if [ -d /home/${user}/.btsync ]; then
         sudo rm -rf /home/${user}/.btsync
@@ -232,40 +222,41 @@ function remove {
       if [ -f /usr/bin/btsync ]; then
         sudo rm /usr/bin/btsync
       fi
-      echo "[$stat_ok]  Successfully removed BiTtorrent Sync"
+      echo "[$stat_ok]  Successfully removed BitTorrent Sync"
       exit 0
     else
-      echo "[$stat_ok]  Cancled removing of BitTorrent Sync"
+      echo "[$stat_ok]  Aborted removing of BitTorrent Sync"
       exit 1
     fi
 }
 
 read -r -p "[$stat_y]   Choose one of the BitTorrent Sync Script options [(i)nstall(default)/(u)pdate/(b)ackup/(r)emove]: " response
-    if [[ $response =~ ^([u|U]|[u|U]pdate)$ ]]; then
-      stop_sync
-      echo  "[$stat_ok]  Updating BitTorrent Sync to the latest version"
-      install $dllink
-      btsync_initscript
-      btsyncconfig
-      echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo service btsync start\""
-      exit 0
-    elif [[ $response =~ ^([b|B]|[b|B]ackup)$ ]]; then
-      stop_sync
-      backup
-      echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo service btsync start\""
-      exit 0
-    elif [[ $response =~ ^(""|[i|I]|[i|I]nstall)$ ]]; then
-      stop_sync
-      install_preperations
-      install
-      btsync_initscript
-      btsyncconfig
-      echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo service btsync start\""
-      exit 0
-    elif [[ $response =~ ^(""|[r|R]|[r|R]emove)$ ]]; then
-      remove
-      exit 0
-    else
-      echo "[$stat_x]   You did not choose one of the provided script options. Please try again."
-      exit 0
-    fi
+if [[ $response =~ ^([u|U]|[u|U]pdate)$ ]]; then
+  stop_sync
+  echo  "[$stat_ok]  Updating BitTorrent Sync from version" $(/usr/bin/btsync -help | grep "BitTorrent Sync" | awk {'print $3" "$4'}) "to the latest available version"
+  install $dllink
+  btsync_initscript
+  btsyncconfig
+  echo "[$stat_ok]  Updated BitTorrent Sync to version" $(/usr/bin/btsync -help | grep "BitTorrent Sync" | awk {'print $3" "$4'})
+  echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo service btsync start\""
+  exit 0
+elif [[ $response =~ ^([b|B]|[b|B]ackup)$ ]]; then
+  stop_sync
+  backup
+  exit 0
+elif [[ $response =~ ^(""|[i|I]|[i|I]nstall)$ ]]; then
+  stop_sync
+  install_preperations
+  install
+  btsync_initscript
+  btsyncconfig
+  echo "[$stat_ok]  Installed BitTorrent Sync version" $(/usr/bin/btsync -help | grep "BitTorrent Sync" | awk {'print $3" "$4'})
+  echo "[$stat_ok]  You can now start BitTorrent Sync by typing \"sudo service btsync start\""
+  exit 0
+elif [[ $response =~ ^(""|[r|R]|[r|R]emove)$ ]]; then
+  remove
+  exit 0
+else
+  echo "[$stat_x]   You did not choose one of the provided script options. Please try again."
+  exit 0
+fi
