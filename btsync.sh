@@ -173,7 +173,7 @@ function btsyncconfig {
 
 function backup {
   backup_date=$(date +"%d-%m-%Y_%H-%M-%S")
-  backup_reason="The BitTorrent Sync is being backed up as (btsync_backup_$backup_date.tar.gz)"
+  backup_reason="The BitTorrent Sync is being backed up as (/home/$user/btsync_backup_$backup_date.tar.gz)"
   # Look for the 4 common signals that indicate this script was killed.
   # If the background command was started, kill it, too.
   if [ -e ${btsdir} ]; then
