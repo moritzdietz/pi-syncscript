@@ -50,9 +50,13 @@ BitTorrent Sync will use a default configuration. Please make sure that it will 
 After the script is done, you want to have it automatically start after you reboot your Raspberry Pi.  
 To do that enter the following:```sudo update-rc.d btsync defaults```
 
+##### Where can I find information on fixes and features?
+Please take a look at the [releases section](https://github.com/moritzdietz/pi-syncscript/releases) to see where this little project is headed and currently at.
+
 If you have any kind of productive contribution to this project, create a pull request!  
 I would love to see people improving it.
 
+Oh I almost forgot...
 ##### "Your script sucks because X"
 Well, fuck you. :)
 
