@@ -27,7 +27,7 @@ Backups will be created in ```~/pi/``` directory using this format ```btsync_bac
 * SSH into your Raspberry Pi
 * Download the script to a folder where you keep all your scripts or just ```~/```
 ```
-curl -o btsync.sh https://raw.githubusercontent.com/moritzdietz/pi-syncscript/master/btsync.sh
+curl -O https://raw.githubusercontent.com/moritzdietz/pi-syncscript/master/btsync.sh
 ```
 * Make the script executable
 ```
