@@ -20,9 +20,6 @@ This script will do the following after you run it:
 * Create a configuration file for it to run from ```/etc/btsync/config.json```
 * Create a data directory for it's databases etc. in ```/home/pi/.btsync/```
 
-Prior to running this script you want to verify that the user variable on line 5 is correct.  
-99% (that is my estimate ;D) are running and using the Raspberry Pi with the default user ```pi```.  
-If that is the case for you, you don't need to change anything. Just follow the instructions below.
 
 ### Instructions
 
@@ -36,6 +33,7 @@ curl -o btsync.sh https://raw.githubusercontent.com/moritzdietz/pi-syncscript/ma
 chmod +x btsync.sh
 ```
 * Run the script
+ * Verify that the user variable on line 5 is correct. The script will use the default user ```pi```. If that is the case for you, you don't need to change anything. Just keep following the instructions.
 ```
 ./btsync.sh
 ```
