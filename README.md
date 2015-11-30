@@ -20,6 +20,7 @@ This script will do the following after you run it:
 * Create a configuration file for it to run from ```/etc/btsync/config.json```
 * Create a data directory for it's databases etc. in ```/home/pi/.btsync/```
 
+Backups will be created in ```~/pi/``` directory using this format ```btsync_backup_dd-mm-yyyy_hh-mm-ss.tar.gz```
 
 ### Instructions
 
