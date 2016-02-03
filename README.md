@@ -1,4 +1,4 @@
-
+![BitTorrent Sync loves Raspberry Pi](http://d3f61ff4egbtyy.cloudfront.net/monthly_2016_01/bts_loves_pi_forum.png.b4ba9fc38c01ea35e4b79a3ee7879ed5.png) 
 Raspberry Pi + Sync Script
 =======
 
@@ -18,9 +18,9 @@ This script will do the following after you run it:
 * Extract the downloaded binary to a predefined location ```/usr/bin/btsync```
 * Create an ```/etc/init.d/btsync``` script so you can easily start/stop it
 * Create a configuration file for it to run from ```/etc/btsync/config.json```
-* Create a data directory for it's databases etc. in ```/home/pi/.btsync/```
+* Create a data directory for it's databases etc. in ```/home/<user>/.btsync/```
 
-Backups will be created in ```~/pi/``` directory using this format ```btsync_backup_dd-mm-yyyy_hh-mm-ss.tar.gz```
+Backups will be created in ```~/<user>/``` directory using this format ```btsync_backup_dd-mm-yyyy_hh-mm-ss.tar.gz```
 
 ### Instructions
 
@@ -34,7 +34,7 @@ curl -O https://raw.githubusercontent.com/moritzdietz/pi-syncscript/master/btsyn
 chmod +x btsync.sh
 ```
 * Run the script
- * Verify that the user variable on line 5 is correct. The script will use the default user ```pi```. If that is the case for you, you don't need to change anything. Just keep following the instructions.
+ * If you are running the script as a different user than ```pi```, which is the default, the script will ask you if you want to install it as that user instead
 ```
 ./btsync.sh
 ```
@@ -44,7 +44,7 @@ Please be mindful: by using other URLs/links I can not garantuee that the script
 Only use links provided by the Sync Staff on the forums or from the official BitTorrent Inc. website.
 
 BitTorrent Sync will use a default configuration. Please make sure that it will work in your environment.
-[Here](http://help.getsync.com/customer/portal/articles/2018454-running-sync-in-configuration-mode) and [here](http://help.getsync.com/customer/en/portal/articles/1902098-sync-preferences-general-advanced-more-options) are help articles from the [Sync Help Center](http://help.getsync.com/) that will guide you through the configuration options.
+[Here](http://help.getsync.com/hc/en-us/articles/204762689-Running-Sync-in-configuration-mode) and [here](http://help.getsync.com/hc/en-us/articles/207371636-Power-user-preferences) are help articles from the [Sync Help Center](http://help.getsync.com/) that will guide you through the configuration options.
 
 After the script is done, you want to have it automatically start after you reboot your Raspberry Pi.  
 To do that enter the following:```sudo update-rc.d btsync defaults```
