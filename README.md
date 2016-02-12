@@ -8,6 +8,8 @@ This is a script to manage your [BitTorrent Sync](https://www.getsync.com/) inst
 
 Well, I have noticed that in the Sync community a lot of people have been using a source that is no longer supported by it's creator, thus it is outdated and causes headaches for people using it and supporting BitTorrent Sync in general. TL;DR is: don't use it. It is not supported anymore. There are hints that BitTorrent Inc. will come up with their own solution. We'll see what happens ¯\\_(ツ)_/¯.
 
+## //There are some issues with Raspbian Jessie.. will update work towards solution//
+
 ### What will this script do?
 
 This script will do the following after you run it:
