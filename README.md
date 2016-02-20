@@ -16,8 +16,6 @@ People on the forum have frequently been asking for advice on how to setup, inst
 ### Does BiTorrent Inc. host an official repository?
 Yes, they do. They have been working on it for a while and now they have finally published a blog post telling users that they can use their official repository. Make sure to check out their blogpost [here](http://blog.getsync.com/2016/02/18/official-linux-packages-for-sync-now-available).
 
-## //There are some issues with Raspbian Jessie.. will update work towards solution//
-
 ### What will this script do?
 
 This script will do the following things when you run it:
