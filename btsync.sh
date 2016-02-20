@@ -35,7 +35,7 @@ else
   if [ $(uname -m) == "armv6l" ]; then
       default_dllink="https://download-cdn.getsync.com/stable/linux-arm/BitTorrent-Sync_arm.tar.gz"
   elif [ $(uname -m) == "armv7l" ]; then
-      default_dllink="https://download-cdn.getsync.com/2.3.1/linux-armhf/BitTorrent-Sync_armhf.tar.gz"
+      default_dllink="https://download-cdn.getsync.com/2.3.2/linux-armhf/BitTorrent-Sync_armhf.tar.gz"
   fi
 fi
 

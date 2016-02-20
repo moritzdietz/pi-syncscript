@@ -4,15 +4,23 @@ Raspberry Pi + Sync Script
 
 This is a script to manage your [BitTorrent Sync](https://www.getsync.com/) installation on your [Raspberry Pi](https://www.raspberrypi.org/).
 
-### Why? I thought there already is a working "Debian Package"?!
+### Why should I be using this script?
 
-Well, I have noticed that in the Sync community a lot of people have been using a source that is no longer supported by it's creator, thus it is outdated and causes headaches for people using it and supporting BitTorrent Sync in general. TL;DR is: don't use it. It is not supported anymore. There are hints that BitTorrent Inc. will come up with their own solution. We'll see what happens ¯\\_(ツ)_/¯.
+There used to be a non-official repository people have been using to install BitTorrent Sync on their machines.  
+The creator and maintainer of that repository has moved on and left his project to the community trying to fix bugs themselves.
+It was a headache for everybody involved since things didn't work as expected and nobody was really digging into it.
+
+Since I was testing and troubleshooting BitTorrent Sync a lot and had to re-install and update it on my machines, I wanted to have it a little bit nice and automated.  
+People on the forum have frequently been asking for advice on how to setup, install and maintain BitTorrent Sync on their Raspberry Pis. Especially Linux beginners didn’t really know how to do that. This gave me a good reason to publish my script for all to share and use.
+
+### Does BiTorrent Inc. host an official repository?
+Yes, they do. They have been working on it for a while and now they have finally published a blog post telling users that they can use their official repository. Make sure to check out their blogpost [here](http://blog.getsync.com/2016/02/18/official-linux-packages-for-sync-now-available).
 
 ## //There are some issues with Raspbian Jessie.. will update work towards solution//
 
 ### What will this script do?
 
-This script will do the following after you run it:
+This script will do the following things when you run it:
 * Ask if you want to install, update, backup or remove an already existing installation
  * Update, backup and remove only work when BitTorrent Sync was installed with this script
 * Download the latest public available version of the ARM binary from BitTorrent Inc.'s website  
@@ -23,6 +31,13 @@ This script will do the following after you run it:
 * Create a data directory for it's databases etc. in ```/home/<user>/.btsync/```
 
 Backups will be created in ```~/<user>/``` directory using this format ```btsync_backup_dd-mm-yyyy_hh-mm-ss.tar.gz```
+
+### Will this work on Raspbian Jessie?
+As of right now this script only works on Wheezy since it uses init.d and does not support systemd.  
+There is an error message after you run it on Raspbian Jessie  
+```Failed to start btsync.service: Unit btsync.service failed to load: No such file or directory.```  
+Feel free to fork it if you want to enhance support! I also love seeing PRs :) 
+
 
 ### Instructions
 
@@ -41,7 +56,7 @@ chmod +x btsync.sh
 ./btsync.sh
 ```
 You can also provide a direct link to an ARM binary that has been posted from the Administrators on the forum, but is not yet available through the https://getsync.com website.  
-You do this by using the syntax ```./btsync.sh yourURLhere```  
+For example  ``` ./btsync.sh https://download-cdn.getsync.com/2.3.2/linux-arm/BitTorrent-Sync_arm.tar.gz ```  
 Please be mindful: by using other URLs/links I can not garantuee that the script will work like expected!  
 Only use links provided by the Sync Staff on the forums or from the official BitTorrent Inc. website.
 
@@ -56,11 +71,6 @@ Please take a look at the [releases section](https://github.com/moritzdietz/pi-s
 
 If you have any kind of productive contribution to this project, create a pull request!  
 I would love to see people improving it.
-
-Oh I almost forgot...
-##### "Your script sucks because X"
-Well, fuck you. :)
-
 
 <sub>**Disclaimer**</sub>
 
