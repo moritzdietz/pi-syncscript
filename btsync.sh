@@ -27,7 +27,7 @@ if [ "$(whoami)" != "pi" ]; then
 else
   user="pi"
 fi
-btsdir="/home/$user/.btsync"
+btsdir="/home/$user/.btsync/data/.syncsystem"
 
 if [ ! -z $1 ];then
   dllink="$1"
@@ -66,7 +66,7 @@ function install_preperations {
   if [ ! -d "$btsdir" ]; then
     echo "[$stat_ok]  Trying to create installation folder ($btsdir)"
     sleep 0.5
-    err_cmd=$(mkdir $btsdir 2>&1 >/dev/null)
+    err_cmd=$(mkdir -p $btsdir 2>&1 >/dev/null)
       if [ $? -ne 0 ]; then
         echo "[$stat_x]   Error: Could not create installation folder $btsdir"
         echo "[$stat_x]   $err_cmd"
