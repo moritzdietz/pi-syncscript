@@ -29,15 +29,14 @@ else
 fi
 btsdir="/home/$user/.btsync/data/.syncsystem"
 
+fp=
 if [ ! -z $1 ];then
   dllink="$1"
-else
-  if [ $(uname -m) == "armv6l" ]; then
-      default_dllink="https://download-cdn.getsync.com/stable/linux-arm/BitTorrent-Sync_arm.tar.gz"
-  elif [ $(uname -m) == "armv7l" ]; then
-      default_dllink="https://download-cdn.getsync.com/2.3.2/linux-armhf/BitTorrent-Sync_armhf.tar.gz"
-  fi
+elif [ $(uname -m) == "armv7l" ]; then
+      fp=hf
 fi
+
+default_dllink="https://download-cdn.getsync.com/stable/linux-arm$fp/BitTorrent-Sync_arm$fp.tar.gz"
 
 function stop_sync {
   echo "[$stat_y]   Trying to stop a running BitTorrent Sync instance"
