@@ -1,10 +1,12 @@
-![BitTorrent Sync loves Raspberry Pi](http://d3f61ff4egbtyy.cloudfront.net/monthly_2016_01/bts_loves_pi_forum.png.b4ba9fc38c01ea35e4b79a3ee7879ed5.png) 
+![BitTorrent Sync loves Raspberry Pi](https://i.imgur.com/0lTAi8l.png) 
 Raspberry Pi + Sync Script
 =======
 
 This is a script to manage your [BitTorrent Sync](https://www.getsync.com/) installation on your [Raspberry Pi](https://www.raspberrypi.org/).
 
 ### Why should I be using this script?
+
+**EDIT:** You shouldn't! Please check [help.getsync.com](https://help.getsync.com) for information on how to add the repository and install Sync using apt.
 
 There used to be a non-official repository people have been using to install BitTorrent Sync on their machines.  
 The creator and maintainer of that repository has moved on and left his project to the community trying to fix bugs themselves.
