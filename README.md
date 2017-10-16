@@ -1,4 +1,4 @@
-![BitTorrent Sync loves Raspberry Pi](https://i.imgur.com/0lTAi8l.png) 
+![BitTorrent Sync loves Raspberry Pi](https://i.imgur.com/0lTAi8l.png)  
 Raspberry Pi + Sync Script
 =======
 
